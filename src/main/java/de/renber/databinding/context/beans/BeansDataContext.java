@@ -13,7 +13,7 @@ public class BeansDataContext implements IDataContext {
 	Object source;
 
 	public BeansDataContext(Object source) {
-		this.source = source;	
+		this.source = source;			
 	}	
 
 	public IValueDataContext value(String propertyName) {

@@ -1,7 +1,14 @@
 package de.renber.databinding.collections;
 
-public interface ItemTransformer<TModel, TViewModel> {
+/**
+ * Interface for methods which transforms one object type into another
+ * @author renber
+ *
+ * @param <TIn>
+ * @param <TOut>
+ */
+public interface ItemTransformer<TIn, TOut> {
 
-	public TViewModel transform(TModel model);	
+	public TOut transform(TIn model);	
 	
 }
