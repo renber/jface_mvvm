@@ -72,7 +72,7 @@ public class ComplexBind {
 	 * Binds a StructuredViewer to a property of type IObservableList (auto-refreshes the
 	 * view when items are added/changed)
 	 */
-	public void list(StructuredViewer viewer, IObservableValue listValue, ILabelProvider labelProvider) {
+	public void list(StructuredViewer viewer, IObservableValue listValue, IBaseLabelProvider labelProvider) {
 		AutoObservableListContentProvider contentProvider = new AutoObservableListContentProvider();
 		if (viewer.getInput() != null)
 			viewer.setInput(null);

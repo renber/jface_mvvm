@@ -1,7 +1,7 @@
 package de.renber.databinding.collections;
 
 /**
- * Interface for methods which transforms one object type into another
+ * Interface for methods which transform one object type into another
  * @author renber
  *
  * @param <TIn>

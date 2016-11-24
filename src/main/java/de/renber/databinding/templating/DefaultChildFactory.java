@@ -28,12 +28,11 @@ class DefaultChildFactory implements ITemplatingControlFactory {
 		if (v instanceof Control) {
 			((Control)v).setParent(parent);
 			return (Control)v;
-		} else {
-			Composite cmp = new Composite(parent, SWT.NONE);
-			Label lbl = new Label(cmp, SWT.NONE);			
+		} else {			
+			Label lbl = new Label(parent, SWT.NONE);			
 			if (v != null)
 				lbl.setText(v.toString());
-			return cmp;
+			return lbl;
 		}
 	}
 

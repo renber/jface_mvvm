@@ -17,9 +17,9 @@ import de.renber.databinding.providers.IViewModelOwned;
 import de.renber.databinding.viewmodels.IPropertyChangeSupport;
 
 /**
- * A IObservableList implementation which contains ViewModels and synchronizes
- * to a List containing model instances. It also raises the ListChanged event
- * when a property of alist item is changed
+ * An IObservableList implementation which contains ViewModels and synchronizes
+ * to a List containing model instances. It also notifies its ChildChangeListeners
+ * when a property of a list item is changed
  * 
  * @author renber
  *

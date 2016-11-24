@@ -3,6 +3,8 @@ package de.renber.databinding.templating;
 import org.eclipse.core.databinding.observable.list.IListChangeListener;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.databinding.observable.value.IValueChangeListener;
+import org.eclipse.core.databinding.observable.value.ValueChangeEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
@@ -18,6 +20,8 @@ public abstract class TemplatingParent extends Composite {
 	protected IObservableValue itemSource;
 
 	protected ITemplatingControlFactory itemControlFactory;
+	
+	private SourceValueChangeListener valueChangeListener = new SourceValueChangeListener();
 
 	/**
 	 * Create a ContentPresenter
@@ -34,11 +38,13 @@ public abstract class TemplatingParent extends Composite {
 	 * @param itemSourceValue
 	 */
 	public void setInput(IObservableValue itemSourceProperty) {
-		this.itemSource = itemSourceProperty;
 
-		this.itemSource.addValueChangeListener((x) -> {
-			itemSourceChanged(x.diff.getNewValue());
-		});
+		if (this.itemSource != null) {
+			this.itemSource.removeValueChangeListener(valueChangeListener);
+		}
+		
+		this.itemSource = itemSourceProperty;
+		this.itemSource.addValueChangeListener(valueChangeListener);
 
 		itemSourceChanged(itemSource.getValue());
 	}
@@ -50,7 +56,7 @@ public abstract class TemplatingParent extends Composite {
 	/**
 	 * The factory to use to create the child composites
 	 * 
-	 * @param itemCompositeFactory
+	 * @param itemCompositeFactory The factory to use or null to use the default factory of this control
 	 */
 	public void setItemFactory(ITemplatingControlFactory itemCompositeFactory) {
 		if (itemCompositeFactory == null)
@@ -70,12 +76,19 @@ public abstract class TemplatingParent extends Composite {
 	protected abstract ITemplatingControlFactory getDefaultItemFactory();
 
 	/**
-	 * Called when the bound property changes its value The content of this
+	 * Called when the bound property changes its value and the content of this
 	 * control has to be recreated or relayouted
 	 * 
 	 * @param newValue
 	 *            The new value of the bound property
 	 */
 	protected abstract void itemSourceChanged(Object newValue);
+	
+	class SourceValueChangeListener implements IValueChangeListener {
+		@Override
+		public void handleValueChange(ValueChangeEvent e) {
+			itemSourceChanged(e.diff.getNewValue());
+		}		
+	}
 
 }
