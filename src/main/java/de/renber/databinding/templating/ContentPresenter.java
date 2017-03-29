@@ -1,5 +1,7 @@
 package de.renber.databinding.templating;
 
+import java.beans.Beans;
+
 import org.eclipse.core.databinding.BindingException;
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -7,9 +9,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Widget;
 
 import de.renber.databinding.context.IDataContext;
@@ -34,6 +38,12 @@ public class ContentPresenter extends TemplatingParent {
 		// we only need to layout one child, so just use FillLayout
 		FillLayout fillLayout = new FillLayout();
 		setLayout(fillLayout);
+		
+		if (Beans.isDesignTime()) {
+			Label designTimeCaptionLbl = new Label(this, SWT.NONE);							
+			designTimeCaptionLbl.setText("<ContentPresenter>");
+			designTimeCaptionLbl.setAlignment(SWT.CENTER);
+		}
 	}
 
 	@Override
@@ -71,7 +81,7 @@ public class ContentPresenter extends TemplatingParent {
 
 			// instantiate a new child control based on the template class
 			IDataContext itemDataContext = new BeansDataContext(currentContent);
-			Control itemControl = itemControlFactory.createControl(this, itemDataContext);
+			Control itemControl = itemControlFactory.create(this, itemDataContext);
 			Object ld_item = itemControlFactory.getLayoutData(getLayout(), itemControl, itemDataContext);
 			if (ld_item != null)
 				itemControl.setLayoutData(ld_item);

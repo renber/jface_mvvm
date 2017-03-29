@@ -7,6 +7,7 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import de.renber.databinding.context.IDataContext;
 import de.renber.databinding.context.IListDataContext;
 import de.renber.databinding.context.IValueDataContext;
+import de.renber.databinding.viewmodels.PropertyChangeSupportBase;
 
 public class BeansDataContext implements IDataContext {
 
@@ -32,4 +33,25 @@ public class BeansDataContext implements IDataContext {
 		return source;
 	}
 
+	/**
+	 * Returns an observable for this root DataContext with the static value of source which was used to create this BeansDataContext
+	 * (thus, no change notifications will be fired) 
+	 */
+	@Override
+	public IObservableValue observe() {		
+		MockObservable obs = new MockObservable(getValue());
+		return BeanProperties.value("value").observe(obs);
+	}	
+}
+
+class MockObservable extends PropertyChangeSupportBase {
+	public Object value;
+	
+	public MockObservable(Object value) {
+		this.value = value;
+	}
+	
+	public Object getValue() {
+		return value;
+	}
 }

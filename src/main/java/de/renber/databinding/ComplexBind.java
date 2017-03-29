@@ -72,7 +72,7 @@ public class ComplexBind {
 	 * Binds a StructuredViewer to a property of type IObservableList (auto-refreshes the
 	 * view when items are added/changed)
 	 */
-	public void list(StructuredViewer viewer, IObservableValue listValue, IBaseLabelProvider labelProvider) {
+	public void list(StructuredViewer viewer, IObservableValue listValue, IBaseLabelProvider labelProvider) {		
 		AutoObservableListContentProvider contentProvider = new AutoObservableListContentProvider();
 		if (viewer.getInput() != null)
 			viewer.setInput(null);
@@ -90,6 +90,14 @@ public class ComplexBind {
 			// set input to the new list
 			viewer.setInput((IObservableList) e.diff.getNewValue());
 		});	
+	}
+	
+	/**
+	 * Binds a StructuredViewer to a property of type IObservableList without providing a label provider
+	 * (can be used for TableViewers whose columns have custom LabelProviders)
+	 */
+	public void table(StructuredViewer viewer, IObservableValue listValue) {
+		list(viewer, listValue, null);
 	}
 
 	/**

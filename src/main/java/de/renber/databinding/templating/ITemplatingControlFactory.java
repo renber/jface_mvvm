@@ -8,19 +8,11 @@ import org.eclipse.swt.widgets.Widget;
 import de.renber.databinding.context.IDataContext;
 
 /**
- * Factory to create composites with a DataContext
+ * Factory to create controls with a DataContext
  * @author renber
  */
-public interface ITemplatingControlFactory {
-
-	/**
-	 * Create a control for the given dataContext 
-	 * @param parent
-	 * @param dataContext
-	 * @return
-	 */
-	public Control createControl(Composite parent, IDataContext itemDataContext);
-	
+public interface ITemplatingControlFactory extends ITemplatingFactory<Composite, Control> {
+		
 	/**
 	 * Return the layout data to use for the given control which has been assigned the given dataContext
 	 * @param itemComposite

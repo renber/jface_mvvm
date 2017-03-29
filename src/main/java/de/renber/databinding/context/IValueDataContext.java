@@ -9,7 +9,5 @@ public interface IValueDataContext extends IDataContext {
 	
 	public IListDataContext list(String propertyPath);
 	
-	public IObservableValue observe();			
-	
 	public Object getValue();	
 }

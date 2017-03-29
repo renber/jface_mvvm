@@ -1,5 +1,7 @@
 package de.renber.databinding.templating;
 
+import java.beans.Beans;
+
 import org.eclipse.core.databinding.BindingException;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.list.IListChangeListener;
@@ -46,6 +48,14 @@ public class ItemsControl extends TemplatingParent {
 
 		GridLayout gridLayout = new GridLayout(1, true);
 		setLayout(gridLayout);		
+		
+		if (Beans.isDesignTime()) {			
+			Label designTimeCaptionLbl = new Label(this, SWT.BORDER);
+			GridData gdata = new GridData(GridData.FILL, GridData.FILL, true, true);
+			designTimeCaptionLbl.setLayoutData(gdata);
+			designTimeCaptionLbl.setAlignment(SWT.CENTER);
+			designTimeCaptionLbl.setText("<ItemsControl>");
+		}
 	}
 	
 	@Override
@@ -96,7 +106,7 @@ public class ItemsControl extends TemplatingParent {
 				// instantiate a new child control based on the template class
 				// and pass in the list item as DataContext
 				IDataContext itemDataContext = new BeansDataContext(item);
-				Control itemControl = itemControlFactory.createControl(this, itemDataContext);
+				Control itemControl = itemControlFactory.create(this, itemDataContext);
 				Object ld_item = itemControlFactory.getLayoutData(getLayout(), itemControl, itemDataContext);
 				if (ld_item != null)
 					itemControl.setLayoutData(ld_item);

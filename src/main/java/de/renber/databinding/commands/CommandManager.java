@@ -157,7 +157,12 @@ public class CommandManager {
 		btn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				cmd.execute();
+				try {
+					cmd.execute();
+				} catch (Exception e) {
+					// Todo: log
+					System.err.println("Error while executing command: " + e.getMessage());
+				}
 			}
 		});
 
@@ -209,7 +214,13 @@ public class CommandManager {
 		menuItem.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				cmd.execute();
+				try {
+					cmd.execute();
+				} catch (Exception e) {
+					// Todo: log
+					e.printStackTrace();
+					System.err.println("Error while executing command: " + e.getMessage());
+				}
 			}
 		});
 
@@ -248,7 +259,12 @@ public class CommandManager {
 		toolItem.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				cmd.execute();
+				try {
+					cmd.execute();
+				} catch (Exception e) {
+					// Todo: log
+					System.err.println("Error while executing command: " + e.getMessage());
+				}
 			}
 		});
 

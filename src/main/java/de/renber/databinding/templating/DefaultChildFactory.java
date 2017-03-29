@@ -22,7 +22,7 @@ import de.renber.databinding.context.IDataContext;
 class DefaultChildFactory implements ITemplatingControlFactory {
 
 	@Override
-	public Control createControl(Composite parent, IDataContext itemDataContext) {
+	public Control create(Composite parent, IDataContext itemDataContext) {
 		Object v = itemDataContext.getValue();
 
 		if (v instanceof Control) {

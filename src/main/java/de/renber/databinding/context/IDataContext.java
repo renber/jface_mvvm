@@ -14,4 +14,10 @@ public interface IDataContext {
 	public IListDataContext list(String propertyPath);	
 	
 	public Object getValue();	
+	
+	/**
+	 * Returns an observable for this root DataContext
+	 * (however, since this is a root object most implementation will _not_ fire change notifications) 
+	 */
+	public IObservableValue observe();
 }
